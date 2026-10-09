@@ -1,0 +1,2634 @@
+<!DOCTYPE html>
+<html lang="id" oncontextmenu="return false" onselectstart="return false">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>TES INTELLIGENCE TNI — Military-Oriented Intelligence Assessment Practice</title>
+    
+    <!-- Fonts & External Libraries -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root { 
+            --army-dark: #1b382b; 
+            --army-green: #234737;
+            --gold: #c5a059; 
+            --cream: #f4f6f0;
+            --ivory: #e8ece1;
+            --soft-green: #eaf2e8;
+            --bg: #f3f5f2; 
+            --card-bg: #ffffff;
+            --text-main: #1f2921;
+            --text-muted: #526356;
+            --border-color: #cbd5c0;
+            --danger: #c0392b; 
+            --success: #27ae60;
+        }
+
+        * { 
+            box-sizing: border-box; 
+            -webkit-user-select: none; 
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none; 
+        }
+
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            background: var(--bg); 
+            margin: 0; 
+            padding: 0; 
+            color: var(--text-main); 
+            line-height: 1.5;
+        }
+
+        header { 
+            background: var(--army-dark); 
+            color: white; 
+            padding: 16px 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 4px solid var(--gold); 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .header-title h1 { 
+            margin: 0; 
+            font-size: 20px; 
+            color: #fff; 
+            font-weight: 800; 
+            letter-spacing: 0.5px; 
+        }
+
+        .header-title p { 
+            margin: 3px 0 0; 
+            font-size: 11px; 
+            color: var(--gold); 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+        }
+
+        .timer-badge { 
+            font-size: 22px; 
+            font-weight: 800; 
+            color: var(--gold); 
+            font-family: monospace; 
+            background: rgba(255,255,255,0.08); 
+            padding: 6px 16px; 
+            border-radius: 8px; 
+            border: 1px solid rgba(197, 160, 89, 0.4); 
+        }
+
+        .container { 
+            max-width: 900px; 
+            margin: 25px auto; 
+            padding: 0 15px; 
+        }
+
+        .card { 
+            background: var(--card-bg); 
+            padding: 30px; 
+            border-radius: 14px; 
+            box-shadow: 0 4px 20px rgba(27,56,43,0.08); 
+            border: 1px solid #d2dccb; 
+            margin-bottom: 25px; 
+        }
+
+        .user-card { 
+            text-align: center; 
+            background: linear-gradient(135deg, #ffffff 0%, var(--cream) 100%); 
+        }
+
+        .form-group { 
+            margin-bottom: 20px; 
+            text-align: left; 
+            max-width: 450px; 
+            margin-left: auto; 
+            margin-right: auto; 
+        }
+
+        .form-group label { 
+            display: block; 
+            font-size: 13px; 
+            font-weight: 700; 
+            color: var(--army-dark); 
+            margin-bottom: 6px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px; 
+        }
+
+        .user-card input { 
+            width: 100%; 
+            padding: 14px 16px; 
+            font-size: 16px; 
+            border: 2px solid var(--border-color); 
+            border-radius: 8px; 
+            outline: none; 
+            transition: 0.2s; 
+            background: #fff; 
+        }
+
+        .user-card input:focus { 
+            border-color: var(--army-dark); 
+            box-shadow: 0 0 0 3px rgba(27,56,43,0.15); 
+        }
+
+        .q-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 15px; 
+            padding-bottom: 12px; 
+            border-bottom: 2px solid var(--ivory); 
+        }
+
+        .q-badge { 
+            background: var(--army-dark); 
+            color: #fff; 
+            font-size: 12px; 
+            font-weight: 700; 
+            padding: 4px 12px; 
+            border-radius: 20px; 
+        }
+
+        .q-category { 
+            background: var(--soft-green); 
+            color: var(--army-dark); 
+            font-size: 11px; 
+            font-weight: 800; 
+            padding: 4px 10px; 
+            border-radius: 6px; 
+            text-transform: uppercase; 
+        }
+        
+        .q-text { 
+            font-size: 20px; 
+            font-weight: 700; 
+            color: var(--army-dark); 
+            line-height: 1.6; 
+            margin-bottom: 25px; 
+            padding: 16px;
+            background: var(--cream);
+            border-left: 5px solid var(--gold);
+            border-radius: 0 8px 8px 0;
+            white-space: pre-line;
+        }
+
+        .opt { 
+            padding: 16px 20px; 
+            margin: 10px 0; 
+            border: 2px solid #e2e8f0; 
+            border-radius: 10px; 
+            cursor: pointer; 
+            transition: all 0.15s ease; 
+            background: #fff; 
+            text-align: left; 
+            line-height: 1.5; 
+            font-size: 15px; 
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+
+        .opt:hover { 
+            background: var(--soft-green); 
+            border-color: var(--army-green); 
+        }
+
+        .opt.selected { 
+            background: #e3ede6; 
+            border-color: var(--army-dark); 
+            font-weight: 700; 
+            color: var(--army-dark); 
+            box-shadow: 0 2px 8px rgba(27,56,43,0.12); 
+        }
+
+        .opt-prefix { 
+            font-weight: 800; 
+            margin-right: 12px; 
+            width: 28px; 
+            height: 28px; 
+            background: rgba(27,56,43,0.08); 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 13px; 
+            color: var(--army-dark); 
+            flex-shrink: 0; 
+        }
+
+        .opt.selected .opt-prefix { 
+            background: var(--army-dark); 
+            color: #fff; 
+        }
+
+        .nav-grid { 
+            display: grid; 
+            grid-template-columns: repeat(10, 1fr); 
+            gap: 6px; 
+            margin-top: 15px; 
+        }
+
+        .nav-item { 
+            height: 36px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border: 1px solid var(--border-color); 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 12px; 
+            font-weight: 700; 
+            background: #fff; 
+            transition: 0.1s; 
+        }
+
+        .nav-item.filled { 
+            background: var(--army-dark); 
+            color: white; 
+            border-color: var(--army-dark); 
+        }
+
+        .nav-item.active { 
+            border: 2.5px solid var(--gold); 
+            font-weight: 900; 
+        }
+
+        .btn { 
+            background: var(--army-dark); 
+            color: white; 
+            border: none; 
+            padding: 12px 26px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            font-weight: 700; 
+            font-size: 14px; 
+            text-decoration: none; 
+            text-align: center; 
+            display: inline-block; 
+            transition: all 0.2s; 
+        }
+
+        .btn:hover { 
+            opacity: 0.95; 
+            transform: translateY(-1px); 
+        }
+
+        .btn-gold { 
+            background: var(--gold); 
+            color: var(--army-dark); 
+        }
+
+        .btn-green { 
+            background: var(--success); 
+            color: white; 
+        }
+
+        .btn-danger { 
+            background: var(--danger); 
+            color: white; 
+        }
+
+        .btn-secondary { 
+            background: #64748b; 
+            color: white; 
+        }
+
+        .score-hero { 
+            background: linear-gradient(135deg, var(--army-dark) 0%, var(--army-green) 100%); 
+            color: #fff; 
+            padding: 30px; 
+            border-radius: 16px; 
+            text-align: center; 
+            margin-bottom: 25px; 
+            border-bottom: 5px solid var(--gold); 
+        }
+
+        .score-hero .val { 
+            font-size: 64px; 
+            font-weight: 900; 
+            color: var(--gold); 
+            margin: 10px 0; 
+            line-height: 1; 
+        }
+        
+        .conclusion-card { 
+            background: var(--cream); 
+            border: 2px solid var(--border-color); 
+            border-radius: 12px; 
+            padding: 20px; 
+            margin-bottom: 25px; 
+        }
+
+        .conclusion-card h3 { 
+            margin-top: 0; 
+            color: var(--army-dark); 
+            font-size: 16px; 
+            font-weight: 800; 
+            border-bottom: 2px solid var(--gold); 
+            padding-bottom: 8px; 
+        }
+
+        .conclusion-text { 
+            font-size: 15px; 
+            color: var(--text-main); 
+            line-height: 1.6; 
+            font-weight: 500; 
+        }
+
+        .metrics-grid { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 12px; 
+            margin-bottom: 25px; 
+        }
+
+        .metric-card { 
+            background: var(--cream); 
+            padding: 15px; 
+            border-radius: 10px; 
+            border: 1px solid var(--border-color); 
+            text-align: center; 
+        }
+
+        .metric-card label { 
+            display: block; 
+            font-size: 11px; 
+            font-weight: 800; 
+            color: var(--text-muted); 
+            text-transform: uppercase; 
+            margin-bottom: 4px; 
+        }
+
+        .metric-card .value { 
+            font-size: 20px; 
+            font-weight: 800; 
+            color: var(--army-dark); 
+        }
+
+        .subcat-table-container { 
+            width: 100%; 
+            overflow-x: auto; 
+            margin-bottom: 25px; 
+            border-radius: 10px; 
+            border: 1px solid var(--border-color); 
+        }
+
+        .subcat-table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            background: #fff; 
+            text-align: left; 
+            font-size: 14px; 
+        }
+
+        .subcat-table th { 
+            background: var(--army-dark); 
+            color: #fff; 
+            padding: 12px 16px; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            font-size: 12px; 
+            letter-spacing: 0.5px; 
+            border-bottom: 3px solid var(--gold); 
+        }
+
+        .subcat-table td { 
+            padding: 12px 16px; 
+            border-bottom: 1px solid var(--ivory); 
+            font-weight: 600; 
+            color: var(--text-main); 
+        }
+
+        .subcat-table tr:nth-child(even) { 
+            background: var(--cream); 
+        }
+
+        .subcat-table tr:hover { 
+            background: var(--soft-green); 
+        }
+
+        .review-item { 
+            background: #fff; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 10px; 
+            padding: 20px; 
+            margin-bottom: 18px; 
+        }
+
+        .review-item.correct { 
+            border-left: 6px solid var(--success); 
+        }
+
+        .review-item.incorrect { 
+            border-left: 6px solid var(--danger); 
+        }
+
+        .pembahasan-box { 
+            background: var(--cream); 
+            padding: 14px 18px; 
+            border-radius: 8px; 
+            margin-top: 12px; 
+            font-size: 14px; 
+            border-left: 4px solid var(--gold); 
+            color: #334155; 
+        }
+        
+        .status-alert { 
+            padding: 12px 16px; 
+            border-radius: 8px; 
+            font-size: 13px; 
+            font-weight: 600; 
+            margin-bottom: 15px; 
+            display: none; 
+        }
+
+        .status-alert.info { 
+            background: #e0f2fe; 
+            color: #0369a1; 
+            border: 1px solid #bae6fd; 
+        }
+
+        .status-alert.error { 
+            background: #fee2e2; 
+            color: #b91c1c; 
+            border: 1px solid #fca5a5; 
+        }
+
+        @media (max-width: 600px) {
+            .nav-grid { 
+                grid-template-columns: repeat(6, 1fr); 
+            }
+
+            .metrics-grid { 
+                grid-template-columns: repeat(1, 1fr); 
+            }
+
+            .q-text { 
+                font-size: 17px; 
+            }
+
+            .subcat-table th, 
+            .subcat-table td { 
+                padding: 10px 10px; 
+                font-size: 12px; 
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="captureArea">
+
+    <!-- MASTER HEADER -->
+    <header id="masterHeader">
+        <div class="header-title">
+            <h1>TES INTELLIGENCE TNI</h1>
+            <p>Military-Oriented Intelligence Assessment Practice</p>
+        </div>
+
+        <div id="timer" class="timer-badge">
+            40:00
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- STATUS ALERT BOX -->
+        <div id="statusAlert" class="status-alert"></div>
+
+        <!-- SECTION 1: START / REGISTRASI -->
+        <div id="sec-start" class="card user-card">
+
+            <h2 style="margin:0 0 10px; color:var(--army-dark); font-weight:800;">
+                TES INTELLIGENCE TNI
+            </h2>
+
+            <p style="font-size:14px; color:var(--text-muted); margin-bottom:25px;">
+                Tes inteligensi berorientasi latihan seleksi militer/TNI yang dirancang untuk melatih dan mengevaluasi kemampuan penalaran verbal, numerik, logika, klasifikasi, hubungan kata/konsep, penyusunan kata menjadi kalimat bermakna, deret huruf/angka, hubungan arah, jarak alfabet, serta pemrosesan informasi secara cepat dan teliti di bawah tekanan waktu. (60 Soal • Waktu 40 Menit)
+            </p>
+            
+            <div class="form-group">
+                <label>Nama Lengkap Peserta *</label>
+
+                <input
+                    type="text"
+                    id="inputNama"
+                    placeholder="Masukkan nama lengkap Anda..."
+                    autocomplete="off"
+                >
+            </div>
+
+            <button
+                class="btn btn-gold"
+                style="font-size:16px; padding:14px 40px; margin-top:10px;"
+                onclick="startTestSession()"
+            >
+                MULAI TES SEKARANG
+            </button>
+
+        </div>
+
+        <!-- SECTION 2: LEMBAR SOAL TES -->
+        <div id="sec-test" style="display:none;">
+
+            <div style="display:flex; gap:20px; flex-wrap:wrap;">
+
+                <div style="flex:3; min-width:300px;">
+
+                    <div class="card">
+
+                        <div class="q-header">
+                            <span class="q-badge" id="q-no">
+                                Soal 1 dari 60
+                            </span>
+
+                            <span class="q-category" id="q-cat">
+                                ANALOGI VERBAL
+                            </span>
+                        </div>
+                        
+                        <div class="q-text" id="q-text"></div>
+                        
+                        <div id="q-options"></div>
+
+                        <div style="margin-top:30px; display:flex; justify-content:space-between; align-items:center;">
+
+                            <button
+                                class="btn btn-secondary"
+                                onclick="prevQuestion()"
+                            >
+                                Sebelumnya
+                            </button>
+
+                            <button
+                                class="btn"
+                                id="btn-next"
+                                onclick="nextQuestion()"
+                            >
+                                Selanjutnya
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div style="flex:1; min-width:250px;">
+
+                    <div class="card" style="padding:18px;">
+
+                        <div style="text-align:center; font-size:12px; font-weight:800; color:var(--army-dark); margin-bottom:12px; letter-spacing:0.5px;">
+                            NAVIGASI SOAL
+                        </div>
+
+                        <div id="navGrid" class="nav-grid"></div>
+
+                        <div style="margin-top:20px; border-top:1px solid #e2e8f0; padding-top:15px; text-align:center;">
+
+                            <button
+                                class="btn btn-danger"
+                                style="width:100%; font-size:13px;"
+                                onclick="confirmFinish()"
+                            >
+                                AKHIRI & SUBMIT TES
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- SECTION 3: HASIL TES -->
+        <div id="sec-result" style="display:none;">
+
+            <div class="card">
+
+                <div style="text-align:center; border-bottom:2px solid #eee; padding-bottom:15px; margin-bottom:20px;">
+
+                    <h2 style="margin:0; color:var(--army-dark); font-weight:800;">
+                        LAPORAN HASIL EVALUASI TES
+                    </h2>
+
+                    <p style="margin:5px 0 0; color:var(--gold); font-weight:700; font-size:13px;">
+                        PERSONA RESEARCH & CONSULTING • WA:
+                        <a
+                            href="https://wa.me/6287742515786"
+                            target="_blank"
+                            style="color:var(--gold); text-decoration:none;"
+                        >
+                            0877 425 15786
+                        </a>
+                    </p>
+
+                </div>
+
+                <div
+                    id="resNamaPeserta"
+                    style="background:var(--cream); padding:15px; border-radius:10px; margin-bottom:20px; font-weight:700; font-size:16px; color:var(--army-dark); text-align:center; border:1px solid var(--border-color);"
+                >
+                    NAMA PESERTA: -
+                </div>
+
+                <div class="score-hero">
+
+                    <div style="font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:1px; opacity:0.9;">
+                        TES INTELLIGENCE SCORE
+                    </div>
+
+                    <div class="val" id="resValFinal">
+                        0
+                    </div>
+
+                    <div style="font-size:13px; opacity:0.85;">
+                        Skala Total 0 - 100 (Total Benar / 60 × 100)
+                    </div>
+
+                </div>
+
+                <!-- KESIMPULAN -->
+                <div class="conclusion-card">
+
+                    <h3>
+                        KESIMPULAN HASIL KECERDASAN & KEMAMPUAN BERPIKIR
+                    </h3>
+
+                    <div
+                        class="conclusion-text"
+                        id="resConclusion"
+                    ></div>
+
+                </div>
+
+                <h3 style="color:var(--army-dark); font-size:14px; font-weight:800; margin-bottom:12px; text-transform:uppercase;">
+                    METRIK RINGKASAN:
+                </h3>
+
+                <div class="metrics-grid">
+
+                    <div class="metric-card">
+                        <label>Jumlah Benar</label>
+                        <div class="value" id="resRaw">
+                            0 / 60
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <label>Akurasi Ketepatan</label>
+                        <div class="value" id="resAcc">
+                            0%
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <label>Waktu Pengerjaan</label>
+                        <div class="value" id="resDur">
+                            00:00
+                        </div>
+                    </div>
+
+                </div>
+
+                <h3 style="color:var(--army-dark); font-size:14px; font-weight:800; margin-bottom:12px; text-transform:uppercase;">
+                    ANALISIS SUBKATEGORI KEMAMPUAN:
+                </h3>
+                
+                <div class="subcat-table-container">
+
+                    <table class="subcat-table">
+
+                        <thead>
+                            <tr>
+                                <th>Kategori Kemampuan</th>
+                                <th style="text-align:center;">Jumlah Benar</th>
+                                <th style="text-align:center;">Total Soal</th>
+                                <th style="text-align:center;">Akurasi (%)</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="subcatTableBody"></tbody>
+
+                    </table>
+
+                </div>
+
+                <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:25px;">
+
+                    <button
+                        class="btn btn-green"
+                        style="flex:1;"
+                        onclick="downloadPDF()"
+                    >
+                        📥 DOWNLOAD HASIL (PDF)
+                    </button>
+
+                    <button
+                        class="btn btn-gold"
+                        style="flex:1;"
+                        onclick="showReviewSection()"
+                    >
+                        📖 LIHAT PEMBAHASAN SOAL
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- SECTION 4: PEMBAHASAN SOAL -->
+        <div id="sec-review" style="display:none;">
+
+            <div class="card">
+
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px solid #eee; padding-bottom:15px; margin-bottom:20px;">
+
+                    <h2 style="margin:0; color:var(--army-dark); font-weight:800;">
+                        PEMBAHASAN SOAL EVALUASI
+                    </h2>
+
+                    <button
+                        class="btn btn-secondary"
+                        onclick="showSection('result')"
+                    >
+                        Kembali ke Hasil
+                    </button>
+
+                </div>
+                
+                <div id="reviewContainer"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    // =========================================================
+    // EXPIRATION CHECK
+    // =========================================================
+
+    const EXPIRATION_DATE =
+        new Date("2026-12-31T23:59:59").getTime();
+
+    if (Date.now() > EXPIRATION_DATE) {
+
+        document.body.innerHTML =
+            "<h1 style='text-align:center;margin-top:20%;color:red;font-family:sans-serif;'>LISENSI TES SUDAH KADALUARSA (EXPIRED).<br>Silakan Hubungi Persona Research & Consulting (WA: 0877 425 15786 / https://wa.me/6287742515786).</h1>";
+
+    }
+
+
+    // =========================================================
+    // MASTER ENDPOINT APPS SCRIPT
+    // =========================================================
+
+    const APP_SCRIPT_URL =
+        "https://script.google.com/macros/s/AKfycbyFxmO0ocvr5HqK2WuGyjt7_JeTOcs4vGDg7QZejeiE2QvCP_qkonJcZc5hz9AFW2Vg/exec";
+
+
+    // =========================================================
+    // STATE VARIABLES
+    // =========================================================
+
+    let currentQ = 0;
+
+    let userAnswers = {};
+
+    let timerInterval = null;
+
+    let timeRemaining = 40 * 60;
+
+    let currentSessionId = "SESS-" + Date.now() + "-" + Math.floor(Math.random() * 10000);
+    let pName = "";
+
+    let sessionData = {
+
+        namaSiswa: "",
+
+        kodeSiswa: "-",
+
+        pin: "-",
+
+        namaTryout: "Tes Intelligence TNI",
+
+        waktuMulai: "",
+
+        waktuSelesai: "",
+
+        durasi: "",
+
+        startMs: 0
+
+    };
+
+
+    // =========================================================
+    // QUESTION BANK
+    // =========================================================
+
+    const questionBank = [
+
+        {
+            cat: "Analogi Verbal",
+            q: "SANDI : KRIPTOGRAFI = PETAK : ...",
+            opts: [
+                "Topografi",
+                "Geografi",
+                "Demografi",
+                "Kartografi",
+                "Koreografi"
+            ],
+            ans: 3,
+            exp: "Sandi diteliti dan dipelajari dalam kriptografi, sedangkan peta/petak wilayah dipelajari dalam ilmu kartografi."
+        },
+
+        {
+            cat: "Deret Numerik",
+            q: "4, 9, 19, 39, 79, ...",
+            opts: [
+                "159",
+                "149",
+                "169",
+                "139",
+                "129"
+            ],
+            ans: 0,
+            exp: "Pola: (suku sebelumnya × 2) + 1. Suku berikutnya: (79 × 2) + 1 = 159."
+        },
+
+        {
+            cat: "Menyusun Kata",
+            q: "Apakah susunan kata acak berikut dapat dibentuk menjadi kalimat logis dan bermakna?\n\"strategis / wilayah / pengamanan / ditingkatkan / prioritas / di\"",
+            opts: [
+                "Ya, dapat membentuk kalimat bermakna",
+                "Tidak, susunan kata tidak logis",
+                "Hanya jika ditambahkan kata kerja baru",
+                "Struktur kalimat pasif tidak tepat",
+                "Ambigu dan kontradiktif"
+            ],
+            ans: 0,
+            exp: "Dapat disusun menjadi: 'Pengamanan di wilayah strategis ditingkatkan menjadi prioritas' yang merupakan kalimat logis dan bermakna."
+        },
+
+        {
+            cat: "Klasifikasi",
+            q: "Pilihlah satu elemen yang memiliki karakteristik fungsi BERBEDA dari kelompoknya:",
+            opts: [
+                "Kompas",
+                "Altimeter",
+                "Barometer",
+                "Kronometer",
+                "Transistor"
+            ],
+            ans: 4,
+            exp: "Kompas, altimeter, barometer, dan kronometer merupakan instrumen pengukur navigasi/lingkungan fisik, sedangkan transistor adalah komponen elektronik semikonduktor."
+        },
+
+        {
+            cat: "Deret Huruf",
+            q: "B, D, G, K, P, ...",
+            opts: [
+                "V",
+                "U",
+                "W",
+                "X",
+                "T"
+            ],
+            ans: 0,
+            exp: "Pola interval lompatan alfabetik bertingkat: B (+2) = D, D (+3) = G, G (+4) = K, K (+5) = P, P (+6) = V."
+        },
+
+        {
+            cat: "Hubungan Arah",
+            q: "Tim pengintai bergerak 8 km ke arah timur, lalu berbelok lurus ke arah utara sejauh 6 km. Berapakah jarak garis lurus terdekat dari posisi awal?",
+            opts: [
+                "10 km",
+                "14 km",
+                "12 km",
+                "9 km",
+                "11 km"
+            ],
+            ans: 0,
+            exp: "Menggunakan Teorema Pythagoras: Jarak = √(8² + 6²) = √100 = 10 km."
+        },
+
+        {
+            cat: "Logika Pernyataan",
+            q: "Semua regu penjelajah dibekali alat komunikasi satelit. Sebagian regu penjelajah bertugas di garis batas utara. Kesimpulan yang sah:",
+            opts: [
+                "Sebagian regu di garis batas utara dibekali alat komunikasi satelit",
+                "Semua regu di garis batas utara tidak dibekali alat komunikasi",
+                "Sebagian pemegang alat komunikasi bukan regu penjelajah",
+                "Tidak ada regu di garis batas utara yang membawa alat komunikasi",
+                "Semua regu penjelajah berada di garis batas utara"
+            ],
+            ans: 0,
+            exp: "Karena seluruh regu penjelajah dibekali komunikasi satelit, maka sebagian regu yang ditugaskan di garis batas utara juga pasti dibekali komunikasi satelit."
+        },
+
+        {
+            cat: "Hubungan Konsep",
+            q: "AMUNISI : KALIBER = KABEL : ...",
+            opts: [
+                "Penampang",
+                "Tegangan",
+                "Panjang",
+                "Hambatan",
+                "Arus"
+            ],
+            ans: 0,
+            exp: "Ukuran standar diameter amunisi dinyatakan dengan kaliber, sedangkan ukuran standar diameter kawat kabel dinyatakan dengan luas penampang."
+        },
+
+        {
+            cat: "Aritmatika Praktis",
+            q: "Suatu cadangan bahan bakar dapat menopang operasional genset selama 15 jam dengan beban 800 Watt. Jika beban dinaikkan menjadi 1.200 Watt, berapa jam daya tahan genset tersebut?",
+            opts: [
+                "10 jam",
+                "8 jam",
+                "12 jam",
+                "9 jam",
+                "11 jam"
+            ],
+            ans: 0,
+            exp: "Perbandingan berbalik nilai: (15 × 800) / 1.200 = 10 jam."
+        },
+
+        {
+            cat: "Odd One Out",
+            q: "Pilihlah kata yang TIDAK sekelompok berdasarkan makna kategorinya:",
+            opts: [
+                "Intrik",
+                "Keterbukaan",
+                "Trik",
+                "Manipulasi",
+                "Siasat"
+            ],
+            ans: 1,
+            exp: "Intrik, trik, manipulasi, dan siasat mengandung makna tipu daya/rekayasa, sedangkan keterbukaan berlawanan makna."
+        },
+
+        {
+            cat: "Menyusun Kata",
+            q: "Apakah susunan kata berikut dapat membentuk kalimat logis bermakna?\n\"logistik / distribusi / jalur / utamanya / terputus / akibat / cuaca\"",
+            opts: [
+                "Ya, dapat membentuk kalimat bermakna",
+                "Tidak, susunan kata tidak logis",
+                "Perlu penambahan kata sambung baru",
+                "Struktur kalimat ganda",
+                "Ambigu"
+            ],
+            ans: 0,
+            exp: "Dapat disusun menjadi: 'Jalur distribusi logistik utamanya terputus akibat cuaca' yang merupakan kalimat logis dan bermakna."
+        },
+
+        {
+            cat: "Analogi Verbal",
+            q: "FRIKSI : KALOR = KONDENSASI : ...",
+            opts: [
+                "Embun",
+                "Penguapan",
+                "Panas",
+                "Awan",
+                "Tekanan"
+            ],
+            ans: 0,
+            exp: "Friksi menghasilkan kalor, sedangkan kondensasi menghasilkan embun."
+        },
+
+        {
+            cat: "Alphabet Distance",
+            q: "Berapakah interval selisih jarak posisi alfabetik antara huruf 'F' (urutan ke-6) dan 'S' (urutan ke-19)?",
+            opts: [
+                "13",
+                "12",
+                "14",
+                "11",
+                "15"
+            ],
+            ans: 0,
+            exp: "Selisih posisi alfabetik: 19 - 6 = 13."
+        },
+
+        {
+            cat: "Deret Numerik",
+            q: "3, 5, 9, 17, 33, ...",
+            opts: [
+                "65",
+                "63",
+                "67",
+                "61",
+                "59"
+            ],
+            ans: 0,
+            exp: "Pola penambahan: +2, +4, +8, +16, +32. Maka 33 + 32 = 65."
+        },
+
+        {
+            cat: "Logika Pernyataan",
+            q: "Jika sistem radar aktif, maka sinyal asing terdeteksi. Sinyal asing tidak terdeteksi saat inspeksi. Kesimpulan yang sah:",
+            opts: [
+                "Sistem radar tidak aktif",
+                "Sistem radar dalam perbaikan",
+                "Sinyal asing hilang",
+                "Sistem radar aktif penuh",
+                "Inspeksi dibatalkan"
+            ],
+            ans: 0,
+            exp: "Berdasarkan prinsip Modus Tollens: Jika P maka Q. Tidak Q. Kesimpulan sah: Tidak P."
+        },
+
+        {
+            cat: "Hubungan Arah",
+            q: "Pengamat memandang ke arah BARAT LAUT. Jika ia berputar 135 derajat searah jarum jam, ke arah manakah ia menghadap sekarang?",
+            opts: [
+                "TIMUR",
+                "TENGGARA",
+                "SELATAN",
+                "UTARA",
+                "BARAT"
+            ],
+            ans: 0,
+            exp: "Barat Laut (315°). Berputar 135° searah jarum jam menghasilkan 90°, yaitu Timur."
+        },
+
+        {
+            cat: "Alphabet Distance",
+            q: "Huruf apakah yang berada 4 posisi di belakang huruf 'Q' (urutan ke-17 dalam alfabet)?",
+            opts: [
+                "M",
+                "N",
+                "L",
+                "O",
+                "K"
+            ],
+            ans: 0,
+            exp: "17 - 4 = 13. Huruf ke-13 adalah M."
+        },
+
+        {
+            cat: "Klasifikasi",
+            q: "Pilihlah pasangan kata yang memuat hubungan fungsional BERBEDA dari pasangan lainnya:",
+            opts: [
+                "Teleskop : Astronom",
+                "Mikroskop : Biolog",
+                "Stetoskop : Dokter",
+                "Cangkul : Petani",
+                "Pena : Tinta"
+            ],
+            ans: 4,
+            exp: "Pasangan A-D berpola alat utama dan profesi pengguna, sedangkan E berpola alat dan bahan pelengkap."
+        },
+
+        {
+            cat: "Aritmatika Praktis",
+            q: "Dua kendaraan taktis berangkat dari titik sama menuju arah berlawanan. Kecepatan A adalah 70 km/jam dan B adalah 50 km/jam. Berapa jam waktu yang dibutuhkan agar jarak keduanya menjadi 360 km?",
+            opts: [
+                "3 jam",
+                "4 jam",
+                "2,5 jam",
+                "3,5 jam",
+                "5 jam"
+            ],
+            ans: 0,
+            exp: "Kecepatan relatif = 70 + 50 = 120 km/jam. Waktu = 360 / 120 = 3 jam."
+        },
+
+        {
+            cat: "Deret Huruf",
+            q: "Z, X, V, T, R, ...",
+            opts: [
+                "P",
+                "Q",
+                "O",
+                "N",
+                "S"
+            ],
+            ans: 0,
+            exp: "Pola alfabet mundur selang 2 huruf: Z, X, V, T, R, P."
+        },
+
+        {
+            cat: "Mixed Reasoning",
+            q: "Jika posisi A=1, B=2, C=3, D=4, E=5. Berapakah hasil penjumlahan nilai posisi alfabet untuk kata 'DACE' (D + A + C + E)?",
+            opts: [
+                "13",
+                "12",
+                "14",
+                "15",
+                "11"
+            ],
+            ans: 0,
+            exp: "D(4) + A(1) + C(3) + E(5) = 13."
+        },
+
+        {
+            cat: "Analogi Verbal",
+            q: "ISOLASI : STERIL = FILTRASI : ...",
+            opts: [
+                "Murni",
+                "Jernih",
+                "Padat",
+                "Cair",
+                "Kotor"
+            ],
+            ans: 0,
+            exp: "Isolasi bertujuan mencapai kondisi steril, sedangkan filtrasi bertujuan mencapai kondisi murni."
+        },
+
+        {
+            cat: "Deret Numerik",
+            q: "2, 6, 12, 20, 30, ...",
+            opts: [
+                "42",
+                "40",
+                "36",
+                "48",
+                "44"
+            ],
+            ans: 0,
+            exp: "Pola penambahan: +4, +6, +8, +10, +12. Maka 30 + 12 = 42."
+        },
+
+        {
+            cat: "Menyusun Kata",
+            q: "Apakah susunan kata berikut dapat membentuk kalimat bermakna?\n\"peningkatan / kedisiplinan / efektivitas / berdampak / operasional / pada\"",
+            opts: [
+                "Ya, dapat membentuk kalimat bermakna",
+                "Tidak, susunan kata tidak logis",
+                "Perlu merubah kata kerja",
+                "Kalimat tidak memiliki objek",
+                "Ambigu"
+            ],
+            ans: 0,
+            exp: "Dapat disusun menjadi: 'Peningkatan kedisiplinan berdampak pada efektivitas operasional'."
+        },
+
+        {
+            cat: "Odd One Out",
+            q: "Manakah dari kelompok kata berikut yang TIDAK setara kategorinya:",
+            opts: [
+                "Tegas",
+                "Konsisten",
+                "Cermat",
+                "Ragu",
+                "Lugas"
+            ],
+            ans: 3,
+            exp: "Tegas, konsisten, cermat, dan lugas merupakan karakter kualitatif positif, sedangkan ragu merepresentasikan ketidakpastian."
+        },
+
+        {
+            cat: "Logika Pernyataan",
+            q: "Tidak ada personel piket yang diperbolehkan meninggalkan pos. Sebagian personel piket adalah anggota regu Bravo. Kesimpulan yang sah:",
+            opts: [
+                "Sebagian anggota regu Bravo tidak diperbolehkan meninggalkan pos",
+                "Semua anggota regu Bravo diperbolehkan meninggalkan pos",
+                "Semua yang diperbolehkan meninggalkan pos adalah regu Bravo",
+                "Tidak ada anggota regu Bravo yang bertugas piket",
+                "Sebagian personel piket boleh meninggalkan pos"
+            ],
+            ans: 0,
+            exp: "Anggota regu Bravo yang sedang dalam tugas piket terikat larangan meninggalkan pos."
+        },
+
+        {
+            cat: "Hubungan Konsep",
+            q: "NAHKODA : KAPAL = MASINIS : ...",
+            opts: [
+                "Kereta Api",
+                "Pesawat",
+                "Bus",
+                "Truk",
+                "Lokomotif"
+            ],
+            ans: 0,
+            exp: "Nahkoda bertindak sebagai pengemudi kapal, sedangkan masinis bertindak sebagai pengemudi kereta api."
+        },
+
+        {
+            cat: "Alphabet Distance",
+            q: "Huruf apakah yang berada tepat di titik tengah antara huruf 'D' (posisi ke-4) dan 'P' (posisi ke-16)?",
+            opts: [
+                "J",
+                "K",
+                "I",
+                "L",
+                "H"
+            ],
+            ans: 0,
+            exp: "Posisi tengah = (4 + 16) / 2 = 10. Huruf ke-10 adalah J."
+        },
+
+        {
+            cat: "Hubungan Arah",
+            q: "Sebuah drone bergerak 12 km ke utara, lalu 5 km ke barat, kemudian 12 km ke selatan. Posisi drone sekarang relatif dari titik awal lepas landas adalah...",
+            opts: [
+                "5 km di sebelah barat",
+                "5 km di sebelah timur",
+                "12 km di sebelah utara",
+                "12 km di sebelah selatan",
+                "Kembali ke titik awal"
+            ],
+            ans: 0,
+            exp: "Pergerakan 12 km ke utara dan 12 km ke selatan saling meniadakan. Sisa pergeseran adalah 5 km ke barat."
+        },
+
+        {
+            cat: "Aritmatika Praktis",
+            q: "Nilai rata-rata dari 5 kelompok pengujian adalah 82. Jika 1 data pengujian baru bernilai 94 ditambahkan, berapakah nilai rata-rata yang baru?",
+            opts: [
+                "84",
+                "83",
+                "85",
+                "86",
+                "82,5"
+            ],
+            ans: 0,
+            exp: "Total awal = 5 × 82 = 410. Total baru = 504. Rata-rata baru = 504 / 6 = 84."
+        },
+
+        {
+            cat: "Deret Huruf",
+            q: "A, C, F, J, O, ...",
+            opts: [
+                "U",
+                "V",
+                "T",
+                "W",
+                "S"
+            ],
+            ans: 0,
+            exp: "Pola penambahan alfabetik bertingkat: +2, +3, +4, +5, +6. O + 6 = U."
+        },
+
+        {
+            cat: "Mixed Reasoning",
+            q: "Suatu barisan terdiri dari 15 prajurit. Hendra berada di urutan ke-7 dihitung dari depan. Urutan posisi Hendra jika dihitung dari belakang adalah ke...",
+            opts: [
+                "9",
+                "8",
+                "10",
+                "7",
+                "11"
+            ],
+            ans: 0,
+            exp: "Posisi dari belakang = (15 + 1) - 7 = 9."
+        },
+
+        {
+            cat: "Analogi Verbal",
+            q: "STATIS : DINAMIS = KONSERVATIF : ...",
+            opts: [
+                "Progresif",
+                "Tradisional",
+                "Pasif",
+                "Moderat",
+                "Stagnan"
+            ],
+            ans: 0,
+            exp: "Statis berlawanan makna dengan dinamis; konservatif berlawanan makna dengan progresif."
+        },
+
+        {
+            cat: "Deret Numerik",
+            q: "100, 96, 88, 72, 40, ...",
+            opts: [
+                "-24",
+                "0",
+                "16",
+                "-8",
+                "8"
+            ],
+            ans: 0,
+            exp: "Pola pengurangan: -4, -8, -16, -32, -64. Suku berikutnya = 40 - 64 = -24."
+        },
+
+        {
+            cat: "Menyusun Kata",
+            q: "Apakah susunan kata berikut dapat membentuk kalimat bermakna?\n\"kecepatan / pemrosesan / mempengaruhi / keputusan / akurasi / data\"",
+            opts: [
+                "Ya, dapat membentuk kalimat bermakna",
+                "Tidak, susunan kata tidak logis",
+                "Hanya jika ditambahkan subjek ganda",
+                "Kata kerja tidak relevan",
+                "Ambigu"
+            ],
+            ans: 0,
+            exp: "Dapat disusun menjadi: 'Kecepatan pemrosesan data mempengaruhi akurasi keputusan'."
+        },
+
+        {
+            cat: "Klasifikasi",
+            q: "Manakah negara berikut yang secara geografis berada di benua BERBEDA dibanding opsi lainnya?",
+            opts: [
+                "Jepang",
+                "Korea Selatan",
+                "Vietnam",
+                "Brasil",
+                "Indonesia"
+            ],
+            ans: 3,
+            exp: "Brasil berada di Amerika Selatan, sedangkan negara lainnya berada di Asia."
+        },
+
+        {
+            cat: "Logika Pernyataan",
+            q: "Semua kendaraan taktis menggunakan bahan bakar diesel. Sebagian kendaraan di garasi A adalah kendaraan taktis. Kesimpulan yang sah:",
+            opts: [
+                "Sebagian kendaraan di garasi A menggunakan bahan bakar diesel",
+                "Semua kendaraan di garasi A menggunakan bahan bakar diesel",
+                "Semua pengguna diesel berada di garasi A",
+                "Tidak ada kendaraan di garasi A yang menggunakan diesel",
+                "Kendaraan taktis tidak ada di garasi A"
+            ],
+            ans: 0,
+            exp: "Kendaraan taktis yang berada di garasi A dipastikan menggunakan bahan bakar diesel."
+        },
+
+        {
+            cat: "Hubungan Konsep",
+            q: "DESIBEL : SUARA = KNOT : ...",
+            opts: [
+                "Kecepatan Laut",
+                "Jarak",
+                "Tekanan",
+                "Suhu",
+                "Kedalaman"
+            ],
+            ans: 0,
+            exp: "Desibel adalah satuan ukur intensitas suara, sedangkan knot adalah satuan ukur kecepatan."
+        },
+
+        {
+            cat: "Alphabet Distance",
+            q: "Jika posisi A=1, B=2, C=3 ... Berapakah hasil perkalian posisi alfabetik dari huruf 'E' (ke-5) dan 'H' (ke-8)?",
+            opts: [
+                "40",
+                "35",
+                "45",
+                "30",
+                "50"
+            ],
+            ans: 0,
+            exp: "E = 5 dan H = 8. Hasil perkalian = 5 × 8 = 40."
+        },
+
+        {
+            cat: "Hubungan Arah",
+            q: "Jika arah TIMUR LAUT diputar sebesar 180 derajat, maka arah yang dihasilkan adalah...",
+            opts: [
+                "BARAT DAYA",
+                "BARAT LAUT",
+                "TENGGARA",
+                "SELATAN",
+                "BARAT"
+            ],
+            ans: 0,
+            exp: "Arah yang berlawanan 180° dari Timur Laut adalah Barat Daya."
+        },
+
+        {
+            cat: "Aritmatika Praktis",
+            q: "Sebuah pekerjaan pemetaan wilayah dapat diselesaikan oleh 6 orang dalam waktu 12 hari. Jika pekerjaan tersebut ingin diselesaikan dalam waktu 4 hari, berapa total pekerja yang dibutuhkan?",
+            opts: [
+                "18 orang",
+                "12 orang",
+                "15 orang",
+                "20 orang",
+                "16 orang"
+            ],
+            ans: 0,
+            exp: "Perbandingan berbalik nilai: (6 × 12) / 4 = 18 orang."
+        },
+
+        {
+            cat: "Deret Huruf",
+            q: "A, E, I, M, Q, ...",
+            opts: [
+                "U",
+                "V",
+                "T",
+                "W",
+                "S"
+            ],
+            ans: 0,
+            exp: "Pola lompatan +4 huruf: A, E, I, M, Q, U."
+        },
+
+        {
+            cat: "Mixed Reasoning",
+            q: "Manakah di antara susunan kelompok angka berikut yang memiliki nilai rata-rata terkecil?",
+            opts: [
+                "10, 10, 10, 10",
+                "5, 15, 25, 35",
+                "2, 4, 6, 8",
+                "12, 12, 12, 12",
+                "8, 9, 10, 11"
+            ],
+            ans: 2,
+            exp: "Rata-rata A=10, B=20, C=5, D=12, E=9,5. Rata-rata terkecil adalah C."
+        },
+
+        {
+            cat: "Analogi Verbal",
+            q: "SISTEMATIS : TERATUR = SPONTAN : ...",
+            opts: [
+                "Serta-merta",
+                "Terkontrol",
+                "Rencana",
+                "Kaku",
+                "Lambat"
+            ],
+            ans: 0,
+            exp: "Sistematis bersinonim dengan teratur, sedangkan spontan bersinonim dengan serta-merta."
+        },
+
+        {
+            cat: "Deret Numerik",
+            q: "1, 4, 9, 16, 25, 36, ...",
+            opts: [
+                "49",
+                "48",
+                "50",
+                "64",
+                "45"
+            ],
+            ans: 0,
+            exp: "Pola bilangan kuadrat: 1², 2², 3², 4², 5², 6², 7² = 49."
+        },
+
+        {
+            cat: "Menyusun Kata",
+            q: "Apakah susunan kata berikut dapat membentuk kalimat bermakna?\n\"analisis / mendalam / faktor / risiko / membutuhkan / keputusan\"",
+            opts: [
+                "Ya, dapat membentuk kalimat bermakna",
+                "Tidak, susunan kata tidak logis",
+                "Membutuhkan kata depan baru",
+                "Urutan subjek tidak jelas",
+                "Ambigu"
+            ],
+            ans: 0,
+            exp: "Dapat disusun menjadi: 'Keputusan membutuhkan analisis mendalam faktor risiko' yang bermakna logis."
+        },
+
+        {
+            cat: "Odd One Out",
+            q: "Manakah jenis gelombang berikut yang memiliki sifat fisik BERBEDA dari kelompoknya?",
+            opts: [
+                "Gelombang Radar",
+                "Gelombang Radio",
+                "Gelombang Sinar-X",
+                "Gelombang Ultrasonik",
+                "Gelombang Cahaya"
+            ],
+            ans: 3,
+            exp: "Ultrasonik adalah gelombang mekanik/akustik, sedangkan opsi lainnya adalah gelombang elektromagnetik."
+        },
+
+        {
+            cat: "Logika Pernyataan",
+            q: "Jika kualifikasi memenuhi syarat, maka peserta dipanggil wawancara. Peserta tidak dipanggil wawancara. Kesimpulan yang sah:",
+            opts: [
+                "Kualifikasi tidak memenuhi syarat",
+                "Peserta mengundurkan diri",
+                "Wawancara ditunda",
+                "Kualifikasi sangat bagus",
+                "Jadwal belum keluar"
+            ],
+            ans: 0,
+            exp: "Modus Tollens: Jika P maka Q. Tidak Q. Kesimpulan: Tidak P."
+        },
+
+        {
+            cat: "Hubungan Konsep",
+            q: "HIPOTESA : UJI = RANCANGAN : ...",
+            opts: [
+                "Validasi",
+                "Revisi",
+                "Teori",
+                "Bagan",
+                "Konsep"
+            ],
+            ans: 0,
+            exp: "Hipotesa harus dibuktikan melalui pengujian, sedangkan rancangan melalui validasi."
+        },
+
+        {
+            cat: "Alphabet Distance",
+            q: "Berapa banyak huruf vokal yang terletak di antara huruf 'B' hingga huruf 'M' dalam alfabet?",
+            opts: [
+                "2 huruf (E dan I)",
+                "3 huruf",
+                "1 huruf",
+                "4 huruf",
+                "Tidak ada"
+            ],
+            ans: 0,
+            exp: "Huruf vokal di antara B dan M adalah E dan I, total 2 huruf."
+        },
+
+        {
+            cat: "Hubungan Arah",
+            q: "Posisi Pos Alpha berada di sebelah Selatan Pos Bravo. Pos Charlie berada di sebelah Timur Pos Alpha. Posisi Pos Bravo relatif terhadap Pos Charlie adalah...",
+            opts: [
+                "Barat Laut",
+                "Barat Daya",
+                "Timur Laut",
+                "Tenggara",
+                "Utara"
+            ],
+            ans: 0,
+            exp: "Alpha berada di Selatan Bravo, sehingga Bravo berada di Utara Alpha. Charlie berada di Timur Alpha. Bravo relatif terhadap Charlie berada di Barat Laut."
+        },
+
+        {
+            cat: "Aritmatika Praktis",
+            q: "Sebuah tangki cadangan berisi 3/4 dari kapasitas penuhnya. Setelah diambil 15 liter, isinya menjadi 1/2 dari kapasitas penuh. Berapakah kapasitas penuh tangki tersebut?",
+            opts: [
+                "60 liter",
+                "50 liter",
+                "45 liter",
+                "80 liter",
+                "75 liter"
+            ],
+            ans: 0,
+            exp: "Selisih 3/4 - 1/2 = 1/4. Jika 1/4 = 15 liter, kapasitas penuh = 60 liter."
+        },
+
+        {
+            cat: "Deret Huruf",
+            q: "AB, CD, GH, MN, ...",
+            opts: [
+                "UV",
+                "ST",
+                "QR",
+                "OP",
+                "WX"
+            ],
+            ans: 0,
+            exp: "Pola interval antarpasangan meningkat: AB, CD, GH, MN, UV."
+        },
+
+        {
+            cat: "Mixed Reasoning",
+            q: "Jika 'X' adalah bilangan genap positif dan 'Y' adalah bilangan ganjil positif, manakah bentuk operasi berikut yang PASTI menghasilkan bilangan ganjil?",
+            opts: [
+                "X + Y",
+                "X × Y",
+                "2X + Y - Y",
+                "X + 2Y",
+                "2X + 2Y"
+            ],
+            ans: 0,
+            exp: "Bilangan genap + bilangan ganjil selalu menghasilkan bilangan ganjil."
+        },
+
+        {
+            cat: "Analogi Verbal",
+            q: "LENGKUNG : LINGKARAN = SIKU : ...",
+            opts: [
+                "Persegi",
+                "Segitiga",
+                "Garis",
+                "Sudut",
+                "Titik"
+            ],
+            ans: 0,
+            exp: "Bentuk dasar garis lengkung membentuk lingkaran, sedangkan sudut siku-siku merupakan elemen utama pembentuk persegi."
+        },
+
+        {
+            cat: "Deret Numerik",
+            q: "5, 7, 11, 19, 35, ...",
+            opts: [
+                "67",
+                "55",
+                "63",
+                "71",
+                "51"
+            ],
+            ans: 0,
+            exp: "Pola selisih: +2, +4, +8, +16, +32. Maka 35 + 32 = 67."
+        },
+
+        {
+            cat: "Menyusun Kata",
+            q: "Apakah susunan kata acak berikut dapat dibentuk menjadi kalimat bermakna?\n\"penataan / tata / ruang / optimalisasi / memerlukan / wilayah\"",
+            opts: [
+                "Ya, dapat membentuk kalimat bermakna",
+                "Tidak, susunan kata tidak logis",
+                "Struktur kalimat pasif tidak tepat",
+                "Subjek hilang",
+                "Ambigu"
+            ],
+            ans: 0,
+            exp: "Dapat disusun menjadi: 'Penataan tata ruang wilayah memerlukan optimalisasi'."
+        },
+
+        {
+            cat: "Odd One Out",
+            q: "Pilihlah satu istilah sains yang BERBEDA kelompok kategorinya:",
+            opts: [
+                "Mitokondria",
+                "Ribosom",
+                "Kloroplas",
+                "Kromosom",
+                "Atmosfer"
+            ],
+            ans: 4,
+            exp: "Mitokondria, ribosom, kloroplas, dan kromosom merupakan struktur biologis selular, sedangkan atmosfer adalah lapisan gas planet."
+        },
+
+        {
+            cat: "Logika Pernyataan",
+            q: "Semua modul instruksi tercetak dalam format digital. Semua dokumen digital tersimpan di server aman. Kesimpulan yang sah:",
+            opts: [
+                "Semua modul instruksi tersimpan di server aman",
+                "Sebagian modul instruksi tidak tersimpan di server aman",
+                "Server aman hanya berisi modul instruksi",
+                "Dokumen tercetak tidak dapat diakses",
+                "Semua dokumen digital adalah modul instruksi"
+            ],
+            ans: 0,
+            exp: "Modul → Digital. Digital → Server Aman. Kesimpulan sah: Semua modul instruksi tersimpan di server aman."
+        },
+
+        {
+            cat: "Aritmatika Praktis",
+            q: "Seorang personel membagi waktu latihan 40 menit menjadi 3 sesi. Sesi pertama berlangsung 15 menit, sesi kedua berlangsung 1/2 dari sisa waktu. Berapa menit durasi sesi ketiga?",
+            opts: [
+                "12,5 menit",
+                "10 menit",
+                "15 menit",
+                "11 menit",
+                "13,5 menit"
+            ],
+            ans: 0,
+            exp: "Sisa setelah sesi pertama = 25 menit. Sesi kedua = 12,5 menit. Sesi ketiga = 12,5 menit."
+        }
+
+    ];
+
+
+    // =========================================================
+    // HELPER FUNCTIONS
+    // =========================================================
+
+    function showAlert(msg, isError = false) {
+
+        const el = document.getElementById("statusAlert");
+
+        el.className =
+            "status-alert " +
+            (isError ? "error" : "info");
+
+        el.innerText = msg;
+
+        el.style.display = "block";
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    function clearAlert() {
+
+        const el =
+            document.getElementById("statusAlert");
+
+        el.style.display = "none";
+    }
+
+
+    function showSection(sec) {
+
+        document.getElementById("sec-start").style.display =
+            sec === "start" ? "block" : "none";
+
+        document.getElementById("sec-test").style.display =
+            sec === "test" ? "block" : "none";
+
+        document.getElementById("sec-result").style.display =
+            sec === "result" ? "block" : "none";
+
+        document.getElementById("sec-review").style.display =
+            sec === "review" ? "block" : "none";
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+
+    // =========================================================
+    // START SESSION
+    // =========================================================
+
+    function startTestSession() {
+
+        clearAlert();
+
+        const nama =
+            document.getElementById("inputNama").value.trim();
+
+        if (!nama) {
+
+            alert("Nama lengkap peserta wajib diisi!");
+
+            return;
+        }
+
+        pName = nama;
+
+        const now = new Date();
+
+        sessionData.namaSiswa = nama;
+
+        sessionData.kodeSiswa = "-";
+
+        sessionData.pin = "-";
+
+        sessionData.startMs = now.getTime();
+
+        sessionData.waktuMulai =
+            now.toTimeString().split(" ")[0];
+
+        // Backup nama ke browser storage
+        sessionStorage.setItem(
+            "tni_intel_nama",
+            nama
+        );
+
+        localStorage.setItem(
+            "tni_intel_nama_backup",
+            nama
+        );
+
+        showSection("test");
+
+        buildNavGrid();
+
+        renderQuestion();
+
+        startTimer();
+    }
+
+
+    // =========================================================
+    // TIMER
+    // =========================================================
+
+    function startTimer() {
+
+        const timerEl =
+            document.getElementById("timer");
+
+        timerInterval = setInterval(() => {
+
+            timeRemaining--;
+
+            let m =
+                Math.floor(timeRemaining / 60);
+
+            let s =
+                timeRemaining % 60;
+
+            timerEl.innerText =
+                `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+
+            if (timeRemaining <= 0) {
+
+                clearInterval(timerInterval);
+
+                alert(
+                    "Waktu pengerjaan tes telah habis! Sistem akan melakukan submission otomatis."
+                );
+
+                submitTestResults();
+            }
+
+        }, 1000);
+    }
+
+
+    // =========================================================
+    // NAVIGATION GRID
+    // =========================================================
+
+    function buildNavGrid() {
+
+        const grid =
+            document.getElementById("navGrid");
+
+        grid.innerHTML = "";
+
+        for (
+            let i = 0;
+            i < questionBank.length;
+            i++
+        ) {
+
+            let div =
+                document.createElement("div");
+
+            div.className =
+                "nav-item" +
+                (
+                    userAnswers[i] !== undefined
+                        ? " filled"
+                        : ""
+                ) +
+                (
+                    i === currentQ
+                        ? " active"
+                        : ""
+                );
+
+            div.innerText = i + 1;
+
+            div.onclick = () => {
+
+                currentQ = i;
+
+                renderQuestion();
+            };
+
+            grid.appendChild(div);
+        }
+    }
+
+
+    // =========================================================
+    // RENDER QUESTION
+    // =========================================================
+
+    function renderQuestion() {
+
+        const item =
+            questionBank[currentQ];
+
+        document.getElementById("q-no").innerText =
+            `Soal ${currentQ + 1} dari 60`;
+
+        document.getElementById("q-cat").innerText =
+            item.cat.toUpperCase();
+
+        document.getElementById("q-text").innerText =
+            item.q;
+
+        const optsContainer =
+            document.getElementById("q-options");
+
+        optsContainer.innerHTML = "";
+
+        const labels =
+            ["A", "B", "C", "D", "E"];
+
+        item.opts.forEach(
+            (optText, idx) => {
+
+                let div =
+                    document.createElement("div");
+
+                div.className =
+                    "opt" +
+                    (
+                        userAnswers[currentQ] === idx
+                            ? " selected"
+                            : ""
+                    );
+
+                div.innerHTML =
+                    `<span class="opt-prefix">${labels[idx]}</span>
+                     <span>${optText}</span>`;
+
+                div.onclick = () => {
+
+                    userAnswers[currentQ] = idx;
+
+                    buildNavGrid();
+
+                    // =================================================
+                    // AUTONEXT AKTIF & DIPERBAIKI (TUGAS 1)
+                    // =================================================
+
+                    setTimeout(() => {
+
+                        if (
+                            currentQ <
+                            questionBank.length - 1
+                        ) {
+
+                            currentQ++;
+
+                            renderQuestion();
+
+                        } else {
+
+                            renderQuestion();
+
+                        }
+
+                    }, 180);
+                };
+
+                optsContainer.appendChild(div);
+
+            }
+        );
+
+        document.getElementById("btn-next").innerText =
+            currentQ === questionBank.length - 1
+                ? "Selesai"
+                : "Selanjutnya";
+
+        buildNavGrid();
+    }
+
+
+    // =========================================================
+    // PREVIOUS
+    // =========================================================
+
+    function prevQuestion() {
+
+        if (currentQ > 0) {
+
+            currentQ--;
+
+            renderQuestion();
+        }
+    }
+
+
+    // =========================================================
+    // NEXT
+    // =========================================================
+
+    function nextQuestion() {
+
+        if (
+            currentQ <
+            questionBank.length - 1
+        ) {
+
+            currentQ++;
+
+            renderQuestion();
+
+        } else {
+
+            confirmFinish();
+        }
+    }
+
+
+    // =========================================================
+    // CONFIRM FINISH
+    // =========================================================
+
+    function confirmFinish() {
+
+        let answeredCount =
+            Object.keys(userAnswers).length;
+
+        let unans =
+            questionBank.length - answeredCount;
+
+        let msg =
+            `Anda telah menjawab ${answeredCount} dari 60 soal.`;
+
+        if (unans > 0) {
+
+            msg +=
+                ` Masih ada ${unans} soal belum dijawab.`;
+        }
+
+        msg +=
+            "\n\nYakin ingin mengakhiri tes dan mengirimkan hasil?";
+
+        if (confirm(msg)) {
+
+            submitTestResults();
+        }
+    }
+
+
+    // =========================================================
+    // CALCULATE SCORE
+    // =========================================================
+
+    function calculateScores() {
+
+        let correctCount = 0;
+
+        let subcatCorrect = {};
+
+        let subcatTotal = {};
+
+        questionBank.forEach(
+            (q, idx) => {
+
+                let cat = q.cat;
+
+                if (!subcatTotal[cat]) {
+
+                    subcatTotal[cat] = 0;
+
+                    subcatCorrect[cat] = 0;
+                }
+
+                subcatTotal[cat]++;
+
+                if (
+                    userAnswers[idx] === q.ans
+                ) {
+
+                    correctCount++;
+
+                    subcatCorrect[cat]++;
+                }
+
+            }
+        );
+
+        let finalScore =
+            Math.round(
+                (correctCount / 60) * 100
+            );
+
+        return {
+
+            correctCount: correctCount,
+
+            finalScore: finalScore,
+
+            subcatCorrect: subcatCorrect,
+
+            subcatTotal: subcatTotal
+
+        };
+    }
+
+
+    // =========================================================
+    // CONCLUSION
+    // =========================================================
+
+    function generateAwamConclusion(
+        score,
+        name
+    ) {
+
+        let category = "";
+
+        let desc = "";
+
+        if (score >= 85) {
+
+            category =
+                "SANGAT TINGGI (SANGAT UNGGUL)";
+
+            desc =
+                `<b>${name}</b> memiliki kemampuan berpikir logis, daya tangkap, dan daya analisis pemrosesan informasi yang <b>sangat unggul</b>. Sangat cepat dalam memahami instruksi kompleks, memecahkan deret numerik dan arah spasial dengan ketelitian tinggi, serta konsisten bekerja di bawah tekanan waktu.`;
+
+        } else if (score >= 70) {
+
+            category =
+                "TINGGI (BAIK)";
+
+            desc =
+                `<b>${name}</b> menunjukkan kemampuan nalar dan kecerdasan berpikir yang <b>baik dan di atas rata-rata</b>. Mampu memahami logika masalah verbal maupun angka secara tepat serta memiliki potensi operasional yang terstruktur.`;
+
+        } else if (score >= 55) {
+
+            category =
+                "CUKUP (RATA-RATA)";
+
+            desc =
+                `<b>${name}</b> memiliki kemampuan berpikir logis dan daya tangkap pada tingkat <b>cukup/rata-rata</b>. Mampu menyelesaikan instruksi umum dengan baik, namun disarankan untuk meningkatkan ketelitian pada penalaran numerik dan spasial under time pressure.`;
+
+        } else {
+
+            category =
+                "PERLU PENINGKATAN";
+
+            desc =
+                `<b>${name}</b> saat ini berada pada tingkat pemrosesan kognitif yang <b>perlu peningkatan lebih lanjut</b>. Disarankan berlatih secara berkala pada kecepatan analisis logika dan ketepatan pemecahan masalah.`;
+        }
+
+        return `
+            <p style="margin:0 0 10px; font-weight:800; color:var(--army-dark);">
+                Kategori Performa:
+                <span style="color:var(--gold);">
+                    ${category}
+                </span>
+            </p>
+
+            <p style="margin:0;">
+                ${desc}
+            </p>
+        `;
+    }
+
+
+    // =========================================================
+    // SUBMIT TEST RESULTS
+    // =========================================================
+
+    function submitTestResults() {
+
+        clearInterval(timerInterval);
+
+
+        // =====================================================
+        // 1. RECOVER NAMA PESERTA (TUGAS 3)
+        // =====================================================
+
+        if (!pName || !pName.trim()) {
+            pName = sessionData.namaSiswa || sessionStorage.getItem("tni_intel_nama") || localStorage.getItem("tni_intel_nama_backup") || "";
+        }
+        sessionData.namaSiswa = pName.trim();
+
+
+        // =====================================================
+        // 2. NAMA WAJIB ADA (TUGAS 3)
+        // =====================================================
+
+        if (
+            !pName ||
+            !pName.trim()
+        ) {
+
+            showAlert(
+                "Nama peserta tidak ditemukan. Hasil tidak dapat dikirim.",
+                true
+            );
+
+            showSection("start");
+
+            return;
+        }
+
+
+        // =====================================================
+        // 3. CATAT WAKTU SELESAI
+        // =====================================================
+
+        const endDate =
+            new Date();
+
+        sessionData.waktuSelesai =
+            endDate
+                .toTimeString()
+                .split(" ")[0];
+
+
+        // =====================================================
+        // 4. HITUNG DURASI
+        // =====================================================
+
+        let elapsedSec = 0;
+
+        if (
+            sessionData.startMs &&
+            sessionData.startMs > 0
+        ) {
+
+            elapsedSec =
+                Math.floor(
+                    (
+                        endDate.getTime() -
+                        sessionData.startMs
+                    ) / 1000
+                );
+        }
+
+        let durMin =
+            Math.floor(
+                elapsedSec / 60
+            );
+
+        let durSec =
+            elapsedSec % 60;
+
+        sessionData.durasi =
+            `${durMin}m ${durSec}s`;
+
+
+        // =====================================================
+        // 5. HITUNG NILAI
+        // =====================================================
+
+        const scores =
+            calculateScores();
+
+
+        // =====================================================
+        // 6. PAYLOAD KE GS MASTER (TUGAS 2 & 3)
+        // =====================================================
+
+        const payload = {
+            sessionId: currentSessionId,
+            namaSiswa: pName,
+            program: "TNI",
+            namaTryout: sessionData.namaTryout,
+            tanggal: new Date().toLocaleDateString("id-ID"),
+            waktuMulai: sessionData.waktuMulai,
+            waktuSelesai: sessionData.waktuSelesai,
+            durasi: sessionData.durasi,
+
+            kecerdasan: scores.finalScore,
+            kepribadian: "",
+            kecermatan: "",
+
+            tiu: "",
+            twk: "",
+            tkp: "",
+
+            pengetahuanUmum: "",
+
+            nilaiAkhir: scores.finalScore
+        };
+
+
+        // =====================================================
+        // 7. PENGAMAN TERAKHIR
+        // =====================================================
+
+        if (
+            !payload.namaSiswa ||
+            !payload.namaSiswa.trim()
+        ) {
+
+            showAlert(
+                "Nama peserta kosong. Data tidak dikirim.",
+                true
+            );
+
+            return;
+        }
+
+
+        // =====================================================
+        // 8. DEBUG CONSOLE
+        // =====================================================
+
+        console.log(
+            "PAYLOAD TES INTELLIGENCE TNI:",
+            JSON.stringify(
+                payload,
+                null,
+                2
+            )
+        );
+
+
+        showAlert(
+            "Mengirimkan data hasil tes ke sistem rekap...",
+            false
+        );
+
+
+        // =====================================================
+        // 9. KIRIM JSON KE APPS SCRIPT MASTER (TUGAS 2)
+        // =====================================================
+
+        fetch(
+            APP_SCRIPT_URL,
+            {
+                method: "POST",
+
+                mode: "no-cors",
+
+                headers: {
+                    "Content-Type":
+                        "text/plain;charset=utf-8"
+                },
+
+                body:
+                    JSON.stringify(payload)
+            }
+        )
+        .then(
+            function() {
+
+                console.log(
+                    "POST TES INTELLIGENCE TNI SELESAI DIKIRIM KE APPS SCRIPT."
+                );
+
+                showAlert(
+                    "Hasil tes telah dikirim ke sistem rekap Google Sheet.",
+                    false
+                );
+
+                displayResults(scores);
+            }
+        )
+        .catch(
+            function(error) {
+
+                console.error(
+                    "ERROR POST APPS SCRIPT:",
+                    error
+                );
+
+                showAlert(
+                    "Gagal mengirim hasil ke server, namun laporan tetap ditampilkan.",
+                    true
+                );
+
+                displayResults(scores);
+            }
+        );
+    }
+
+
+    // =========================================================
+    // DISPLAY RESULTS
+    // =========================================================
+
+    function displayResults(scores) {
+
+        showSection("result");
+
+
+        document.getElementById(
+            "resNamaPeserta"
+        ).innerText =
+            `NAMA PESERTA: ${sessionData.namaSiswa.toUpperCase()}`;
+
+
+        document.getElementById(
+            "resValFinal"
+        ).innerText =
+            scores.finalScore;
+
+
+        document.getElementById(
+            "resRaw"
+        ).innerText =
+            `${scores.correctCount} / 60`;
+
+
+        document.getElementById(
+            "resAcc"
+        ).innerText =
+            `${Math.round(
+                (scores.correctCount / 60) * 100
+            )}%`;
+
+
+        document.getElementById(
+            "resDur"
+        ).innerText =
+            sessionData.durasi;
+
+
+        document.getElementById(
+            "resConclusion"
+        ).innerHTML =
+            generateAwamConclusion(
+                scores.finalScore,
+                sessionData.namaSiswa.toUpperCase()
+            );
+
+
+        const tbody =
+            document.getElementById(
+                "subcatTableBody"
+            );
+
+        tbody.innerHTML = "";
+
+
+        for (
+            let cat in scores.subcatTotal
+        ) {
+
+            let tot =
+                scores.subcatTotal[cat];
+
+            let corr =
+                scores.subcatCorrect[cat];
+
+            let pct =
+                tot > 0
+                    ? Math.round(
+                        (corr / tot) * 100
+                    )
+                    : 0;
+
+
+            let tr =
+                document.createElement("tr");
+
+
+            tr.innerHTML = `
+                <td>
+                    <b>${cat.toUpperCase()}</b>
+                </td>
+
+                <td style="text-align:center; color:var(--army-dark); font-weight:700;">
+                    ${corr}
+                </td>
+
+                <td style="text-align:center; color:var(--text-muted);">
+                    ${tot}
+                </td>
+
+                <td style="text-align:center;">
+                    <span
+                        style="
+                            background:${pct >= 70 ? '#dcfce7' : '#fef3c7'};
+                            color:${pct >= 70 ? '#15803d' : '#b45309'};
+                            padding:4px 10px;
+                            border-radius:12px;
+                            font-weight:800;
+                            font-size:12px;
+                        "
+                    >
+                        ${pct}%
+                    </span>
+                </td>
+            `;
+
+
+            tbody.appendChild(tr);
+        }
+    }
+
+
+    // =========================================================
+    // REVIEW
+    // =========================================================
+
+    function showReviewSection() {
+
+        showSection("review");
+
+        const container =
+            document.getElementById(
+                "reviewContainer"
+            );
+
+        container.innerHTML = "";
+
+        const labels =
+            ["A", "B", "C", "D", "E"];
+
+
+        questionBank.forEach(
+            (q, idx) => {
+
+                let userAns =
+                    userAnswers[idx];
+
+                let isCorrect =
+                    userAns === q.ans;
+
+
+                let itemDiv =
+                    document.createElement("div");
+
+
+                itemDiv.className =
+                    "review-item " +
+                    (
+                        isCorrect
+                            ? "correct"
+                            : "incorrect"
+                    );
+
+
+                let html = `
+
+                    <div
+                        style="
+                            display:flex;
+                            justify-content:space-between;
+                            margin-bottom:8px;
+                        "
+                    >
+
+                        <b style="color:var(--army-dark);">
+                            Soal Nomor ${idx + 1}
+                            (${q.cat})
+                        </b>
+
+                        <span
+                            style="
+                                font-weight:700;
+                                font-size:12px;
+                                color:${isCorrect
+                                    ? "var(--success)"
+                                    : "var(--danger)"
+                                }
+                            "
+                        >
+                            ${
+                                isCorrect
+                                    ? "✓ BENAR"
+                                    : "✗ SALAH / TIDAK DIJAWAB"
+                            }
+                        </span>
+
+                    </div>
+
+
+                    <div
+                        style="
+                            font-size:15px;
+                            font-weight:700;
+                            color:var(--army-dark);
+                            margin-bottom:12px;
+                        "
+                    >
+                        ${q.q.replace(/\n/g, "<br>")}
+                    </div>
+
+
+                    <div
+                        style="
+                            font-size:13px;
+                            margin-bottom:6px;
+                        "
+                    >
+                        <b>Jawaban Anda:</b>
+
+                        ${
+                            userAns !== undefined
+                                ? labels[userAns] +
+                                  ". " +
+                                  q.opts[userAns]
+                                : '<span style="color:red;">Tidak Dijawab</span>'
+                        }
+                    </div>
+
+
+                    <div
+                        style="
+                            font-size:13px;
+                            color:var(--success);
+                            font-weight:700;
+                        "
+                    >
+                        <b>Jawaban Benar:</b>
+                        ${labels[q.ans]}.
+                        ${q.opts[q.ans]}
+                    </div>
+
+
+                    <div class="pembahasan-box">
+                        <b>Pembahasan:</b>
+                        ${q.exp}
+                    </div>
+                `;
+
+
+                itemDiv.innerHTML =
+                    html;
+
+
+                container.appendChild(
+                    itemDiv
+                );
+
+            }
+        );
+    }
+
+
+    // =========================================================
+    // PDF / PRINT
+    // =========================================================
+
+    function downloadPDF() {
+
+        window.print();
+
+    }
+
+</script>
+
+</body>
+</html>
